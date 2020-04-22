@@ -1,0 +1,80 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-deliverer-heading" jhiTranslate="glCoopcycleApp.deliverer.home.createOrEditLabel">Create or edit a Deliverer</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.deliverer.currentPosition" for="field_currentPosition">Current Position</label>
+                    <input type="text" class="form-control" name="currentPosition" id="field_currentPosition"
+                           formControlName="currentPosition"/>
+                    <div *ngIf="editForm.get('currentPosition')!.invalid && (editForm.get('currentPosition')!.dirty || editForm.get('currentPosition')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('currentPosition')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('currentPosition')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 64 }">
+                        This field cannot be longer than 64 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.deliverer.transportType" for="field_transportType">Transport Type</label>
+                    <input type="text" class="form-control" name="transportType" id="field_transportType"
+                           formControlName="transportType"/>
+                    <div *ngIf="editForm.get('transportType')!.invalid && (editForm.get('transportType')!.dirty || editForm.get('transportType')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('transportType')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('transportType')?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 64 }">
+                        This field cannot be longer than 64 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.deliverer.status" for="field_status">Status</label>
+                    <select class="form-control" name="status" formControlName="status" id="field_status">
+                        <option value="ACTIVE">{{ 'glCoopcycleApp.DelivererStatus.ACTIVE' | translate }}</option>
+                        <option value="INACTIVE">{{ 'glCoopcycleApp.DelivererStatus.INACTIVE' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('status')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.deliverer.account" for="field_account">Account</label>
+                    <select class="form-control" id="field_account" name="account" formControlName="account">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userAccountOption.id === editForm.get('account')!.value?.id ? editForm.get('account')!.value : userAccountOption" *ngFor="let userAccountOption of useraccounts; trackBy: trackById">{{ userAccountOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

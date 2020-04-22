@@ -1,0 +1,81 @@
+{
+    "name": "Course",
+    "fields": [
+        {
+            "fieldName": "state",
+            "fieldType": "CourseState",
+            "fieldValues": "IN_PROGRESS,CANCELED,DONE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "deliveryState",
+            "fieldType": "DeliveryState",
+            "fieldValues": "DONE,IN_PROGRESS,WAITING_DELIVERER,WAITING_RESTAURANT",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "prepTime",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "deliveryTime",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "deliveryDetails",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "cart",
+            "otherEntityRelationshipName": "course",
+            "relationshipName": "cart",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "payment",
+            "otherEntityRelationshipName": "course",
+            "relationshipName": "payments"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "restaurant",
+            "otherEntityRelationshipName": "course",
+            "relationshipName": "restaurant",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "deliverer",
+            "otherEntityRelationshipName": "course",
+            "relationshipName": "deliverer",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "userAccount",
+            "otherEntityRelationshipName": "course",
+            "relationshipName": "client",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200424120900",
+    "entityTableName": "course",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

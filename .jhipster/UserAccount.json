@@ -1,0 +1,74 @@
+{
+    "name": "UserAccount",
+    "fields": [
+        {
+            "fieldName": "mail",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern",
+                "unique"
+            ],
+            "fieldValidateRulesPattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+        },
+        {
+            "fieldName": "adress",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "login",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength",
+                "unique"
+            ],
+            "fieldValidateRulesMinlength": "5",
+            "fieldValidateRulesMaxlength": "32"
+        },
+        {
+            "fieldName": "password",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength"
+            ],
+            "fieldValidateRulesMinlength": "8"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "restaurant",
+            "otherEntityRelationshipName": "owner",
+            "relationshipName": "restaurants"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "role",
+            "otherEntityRelationshipName": "users",
+            "relationshipName": "roles",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "cooperative",
+            "otherEntityRelationshipName": "members",
+            "relationshipName": "cooperative",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200424120100",
+    "entityTableName": "user_account",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

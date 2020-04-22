@@ -1,0 +1,93 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="glCoopcycleApp.course.home.title">Courses</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-course" [routerLink]="['/course/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="glCoopcycleApp.course.home.createLabel">
+            Create a new Course
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="courses?.length === 0">
+        <span jhiTranslate="glCoopcycleApp.course.home.notFound">No courses found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="courses?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="state"><span jhiTranslate="glCoopcycleApp.course.state">State</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="deliveryState"><span jhiTranslate="glCoopcycleApp.course.deliveryState">Delivery State</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="prepTime"><span jhiTranslate="glCoopcycleApp.course.prepTime">Prep Time</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="deliveryTime"><span jhiTranslate="glCoopcycleApp.course.deliveryTime">Delivery Time</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="deliveryDetails"><span jhiTranslate="glCoopcycleApp.course.deliveryDetails">Delivery Details</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="cart.id"><span jhiTranslate="glCoopcycleApp.course.cart">Cart</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="restaurant.id"><span jhiTranslate="glCoopcycleApp.course.restaurant">Restaurant</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="deliverer.id"><span jhiTranslate="glCoopcycleApp.course.deliverer">Deliverer</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="client.id"><span jhiTranslate="glCoopcycleApp.course.client">Client</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let course of courses ;trackBy: trackId">
+                    <td><a [routerLink]="['/course', course.id, 'view']">{{ course.id }}</a></td>
+                    <td jhiTranslate="{{ 'glCoopcycleApp.CourseState.' + course.state }}">{{ course.state }}</td>
+                    <td jhiTranslate="{{ 'glCoopcycleApp.DeliveryState.' + course.deliveryState }}">{{ course.deliveryState }}</td>
+                    <td>{{ course.prepTime }}</td>
+                    <td>{{ course.deliveryTime }}</td>
+                    <td>{{ course.deliveryDetails }}</td>
+                    <td>
+                        <div *ngIf="course.cart">
+                            <a [routerLink]="['/cart', course.cart?.id, 'view']" >{{ course.cart?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="course.restaurant">
+                            <a [routerLink]="['/restaurant', course.restaurant?.id, 'view']" >{{ course.restaurant?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="course.deliverer">
+                            <a [routerLink]="['/deliverer', course.deliverer?.id, 'view']" >{{ course.deliverer?.id }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="course.client">
+                            <a [routerLink]="['/user-account', course.client?.id, 'view']" >{{ course.client?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/course', course.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/course', course.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(course)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

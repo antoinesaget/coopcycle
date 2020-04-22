@@ -1,0 +1,11 @@
+version: '2'
+services:
+  gl_coopcycle-postgresql:
+    image: postgres:12.1
+    # volumes:
+    #     - ~/volumes/jhipster/GL_Coopcycle/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=GL_Coopcycle
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432

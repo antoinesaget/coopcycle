@@ -1,0 +1,14 @@
+{
+  "glCoopcycleApp": {
+    "RoleEnum": {
+      "null": "",
+      "RESTAURANT_OWNER": "RESTAURANT_OWNER",
+      "CUSTOMER": "CUSTOMER",
+      "DELIVERER": "DELIVERER",
+      "COOP_ADMIN": "COOP_ADMIN",
+      "COOP_MEMBER": "COOP_MEMBER",
+      "DG": "DG",
+      "SYS_ADMIN": "SYS_ADMIN"
+    }
+  }
+}

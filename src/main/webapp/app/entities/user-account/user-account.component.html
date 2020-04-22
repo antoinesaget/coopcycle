@@ -1,0 +1,73 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="glCoopcycleApp.userAccount.home.title">User Accounts</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-user-account" [routerLink]="['/user-account/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="glCoopcycleApp.userAccount.home.createLabel">
+            Create a new User Account
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="userAccounts?.length === 0">
+        <span jhiTranslate="glCoopcycleApp.userAccount.home.notFound">No userAccounts found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="userAccounts?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="mail"><span jhiTranslate="glCoopcycleApp.userAccount.mail">Mail</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="adress"><span jhiTranslate="glCoopcycleApp.userAccount.adress">Adress</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="login"><span jhiTranslate="glCoopcycleApp.userAccount.login">Login</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="password"><span jhiTranslate="glCoopcycleApp.userAccount.password">Password</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="cooperative.id"><span jhiTranslate="glCoopcycleApp.userAccount.cooperative">Cooperative</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let userAccount of userAccounts ;trackBy: trackId">
+                    <td><a [routerLink]="['/user-account', userAccount.id, 'view']">{{ userAccount.id }}</a></td>
+                    <td>{{ userAccount.mail }}</td>
+                    <td>{{ userAccount.adress }}</td>
+                    <td>{{ userAccount.login }}</td>
+                    <td>{{ userAccount.password }}</td>
+                    <td>
+                        <div *ngIf="userAccount.cooperative">
+                            <a [routerLink]="['/cooperative', userAccount.cooperative?.id, 'view']" >{{ userAccount.cooperative?.id }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/user-account', userAccount.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/user-account', userAccount.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(userAccount)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

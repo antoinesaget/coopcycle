@@ -1,0 +1,10 @@
+{
+  "glCoopcycleApp": {
+    "PaymentState": {
+      "null": "",
+      "WAITING": "WAITING",
+      "VALID": "VALID",
+      "CANCELED": "CANCELED"
+    }
+  }
+}

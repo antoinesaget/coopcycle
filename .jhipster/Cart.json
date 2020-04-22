@@ -1,0 +1,41 @@
+{
+    "name": "Cart",
+    "fields": [
+        {
+            "fieldName": "sate",
+            "fieldType": "CartState",
+            "fieldValues": "IN_EDITION,VALIDATED,PAID",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "product",
+            "otherEntityRelationshipName": "carts",
+            "relationshipName": "products",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "course",
+            "otherEntityRelationshipName": "cart",
+            "relationshipName": "course",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200424120800",
+    "entityTableName": "cart",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

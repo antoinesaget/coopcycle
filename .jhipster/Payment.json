@@ -1,0 +1,41 @@
+{
+    "name": "Payment",
+    "fields": [
+        {
+            "fieldName": "state",
+            "fieldType": "PaymentState",
+            "fieldValues": "WAITING,VALID,CANCELED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "method",
+            "fieldType": "PaymentMethod",
+            "fieldValues": "IZLY,BITCOIN,CB,PAYPAL",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "course",
+            "otherEntityRelationshipName": "payments",
+            "relationshipName": "course",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200424120700",
+    "entityTableName": "payment",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

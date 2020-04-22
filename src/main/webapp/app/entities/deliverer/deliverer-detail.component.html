@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="deliverer">
+            <h2><span jhiTranslate="glCoopcycleApp.deliverer.detail.title">Deliverer</span> {{ deliverer.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="glCoopcycleApp.deliverer.currentPosition">Current Position</span></dt>
+                <dd>
+                    <span>{{ deliverer.currentPosition }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.deliverer.transportType">Transport Type</span></dt>
+                <dd>
+                    <span>{{ deliverer.transportType }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.deliverer.status">Status</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'glCoopcycleApp.DelivererStatus.' + deliverer.status }}">{{ deliverer.status }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.deliverer.account">Account</span></dt>
+                <dd>
+                    <div *ngIf="deliverer.account">
+                        <a [routerLink]="['/user-account', deliverer.account?.id, 'view']">{{ deliverer.account?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/deliverer', deliverer.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+{
+  "glCoopcycleApp": {
+    "DelivererStatus": {
+      "null": "",
+      "ACTIVE": "ACTIVE",
+      "INACTIVE": "INACTIVE"
+    }
+  }
+}

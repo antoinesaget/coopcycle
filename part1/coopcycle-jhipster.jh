@@ -1,0 +1,115 @@
+// -------- ENTITIES --------
+entity UserAccount {
+	id UUID required min(0) unique
+    mail String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/) unique
+    adress String
+    login String required minlength(5) maxlength(32) unique
+    password String required minlength(8)
+}
+
+enum RoleEnum {
+	RESTAURANT_OWNER, CUSTOMER, DELIVERER, 
+    COOP_ADMIN, COOP_MEMBER, DG, SYS_ADMIN
+} 
+
+entity Role { 
+	role RoleEnum required unique
+}
+
+entity Cooperative {
+	id UUID required min(0) unique 
+    name String required maxlength(64)
+    geographicalArea String required maxlength(64)
+}
+
+entity Restaurant {
+	adress String required maxlength(64)
+}
+
+enum ProductAvailability {
+	IN_STOCK, NOT_AVAILABLE, REMOVED
+}
+
+entity Product {
+	id UUID required min(0) unique
+    name String required maxlength(64)
+    price Float required min(0) max(1000)
+    availability ProductAvailability required
+}
+
+enum DelivererStatus {
+	ACTIVE, INACTIVE
+}
+
+entity Deliverer {
+	currentPosition String required maxlength(64)
+    transportType String required maxlength(64)
+    status DelivererStatus required
+}
+
+enum PaymentState {
+	WAITING, VALID, CANCELED
+}
+
+enum PaymentMethod {
+	IZLY, BITCOIN, CB, PAYPAL
+}
+
+entity Payment {
+	state PaymentState required
+    method PaymentMethod required
+}
+
+enum CartState {
+	IN_EDITION, VALIDATED, PAID
+}
+
+entity Cart {
+	sate CartState required
+}
+
+enum CourseState { 
+	IN_PROGRESS, CANCELED, DONE
+}
+
+enum DeliveryState {
+	DONE, IN_PROGRESS, WAITING_DELIVERER, WAITING_RESTAURANT
+}
+
+entity Course {
+	state CourseState required
+    deliveryState DeliveryState required
+    prepTime Integer
+    deliveryTime Integer
+    deliveryDetails String
+}
+
+
+relationship OneToOne {
+	Course{cart} to Cart{course}
+    Cooperative{dg} to UserAccount
+}
+
+relationship OneToMany {
+	Cooperative{members} to UserAccount
+	Cooperative{restaurants} to Restaurant{cooperative}
+  	UserAccount{restaurants} to Restaurant{owner}
+    Course{payments} to Payment{course}
+}   
+
+relationship ManyToOne {
+  	Product{restaurant} to Restaurant
+	Course{restaurant} to Restaurant
+	Deliverer{account} to UserAccount
+	Course{deliverer} to Deliverer
+	Course{client} to UserAccount
+}
+
+relationship ManyToMany {
+	UserAccount{roles} to Role{users} 
+    Cart{products} to Product{carts}
+
+}
+
+paginate UserAccount, Cooperative, Restaurant, Deliverer, Course with infinite-scroll
+paginate Product, Cart, Payment with pagination

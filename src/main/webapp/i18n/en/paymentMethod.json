@@ -1,0 +1,11 @@
+{
+  "glCoopcycleApp": {
+    "PaymentMethod": {
+      "null": "",
+      "IZLY": "IZLY",
+      "BITCOIN": "BITCOIN",
+      "CB": "CB",
+      "PAYPAL": "PAYPAL"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+package com.info4.coopcycle.cucumber.stepdefs;
+
+import org.springframework.test.web.servlet.ResultActions;
+
+public abstract class StepDefs {
+
+    protected ResultActions actions;
+
+}

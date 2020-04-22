@@ -1,0 +1,35 @@
+{
+    "name": "Role",
+    "fields": [
+        {
+            "fieldName": "role",
+            "fieldType": "RoleEnum",
+            "fieldValues": "RESTAURANT_OWNER,CUSTOMER,DELIVERER,COOP_ADMIN,COOP_MEMBER,DG,SYS_ADMIN",
+            "fieldValidateRules": [
+                "required",
+                "unique"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "userAccount",
+            "otherEntityRelationshipName": "roles",
+            "relationshipName": "users",
+            "otherEntityField": "id",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20200424120200",
+    "entityTableName": "role",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

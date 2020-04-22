@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="product">
+            <h2><span jhiTranslate="glCoopcycleApp.product.detail.title">Product</span> {{ product.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="glCoopcycleApp.product.name">Name</span></dt>
+                <dd>
+                    <span>{{ product.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.product.price">Price</span></dt>
+                <dd>
+                    <span>{{ product.price }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.product.availability">Availability</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'glCoopcycleApp.ProductAvailability.' + product.availability }}">{{ product.availability }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.product.restaurant">Restaurant</span></dt>
+                <dd>
+                    <div *ngIf="product.restaurant">
+                        <a [routerLink]="['/restaurant', product.restaurant?.id, 'view']">{{ product.restaurant?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/product', product.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

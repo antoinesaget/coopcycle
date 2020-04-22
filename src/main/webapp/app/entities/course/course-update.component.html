@@ -1,0 +1,107 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-course-heading" jhiTranslate="glCoopcycleApp.course.home.createOrEditLabel">Create or edit a Course</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.course.state" for="field_state">State</label>
+                    <select class="form-control" name="state" formControlName="state" id="field_state">
+                        <option value="IN_PROGRESS">{{ 'glCoopcycleApp.CourseState.IN_PROGRESS' | translate }}</option>
+                        <option value="CANCELED">{{ 'glCoopcycleApp.CourseState.CANCELED' | translate }}</option>
+                        <option value="DONE">{{ 'glCoopcycleApp.CourseState.DONE' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('state')!.invalid && (editForm.get('state')!.dirty || editForm.get('state')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('state')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.course.deliveryState" for="field_deliveryState">Delivery State</label>
+                    <select class="form-control" name="deliveryState" formControlName="deliveryState" id="field_deliveryState">
+                        <option value="DONE">{{ 'glCoopcycleApp.DeliveryState.DONE' | translate }}</option>
+                        <option value="IN_PROGRESS">{{ 'glCoopcycleApp.DeliveryState.IN_PROGRESS' | translate }}</option>
+                        <option value="WAITING_DELIVERER">{{ 'glCoopcycleApp.DeliveryState.WAITING_DELIVERER' | translate }}</option>
+                        <option value="WAITING_RESTAURANT">{{ 'glCoopcycleApp.DeliveryState.WAITING_RESTAURANT' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('deliveryState')!.invalid && (editForm.get('deliveryState')!.dirty || editForm.get('deliveryState')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('deliveryState')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.course.prepTime" for="field_prepTime">Prep Time</label>
+                    <input type="number" class="form-control" name="prepTime" id="field_prepTime"
+                           formControlName="prepTime"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.course.deliveryTime" for="field_deliveryTime">Delivery Time</label>
+                    <input type="number" class="form-control" name="deliveryTime" id="field_deliveryTime"
+                           formControlName="deliveryTime"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.course.deliveryDetails" for="field_deliveryDetails">Delivery Details</label>
+                    <input type="text" class="form-control" name="deliveryDetails" id="field_deliveryDetails"
+                           formControlName="deliveryDetails"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.course.cart" for="field_cart">Cart</label>
+                    <select class="form-control" id="field_cart" name="cart" formControlName="cart">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="cartOption.id === editForm.get('cart')!.value?.id ? editForm.get('cart')!.value : cartOption" *ngFor="let cartOption of carts; trackBy: trackById">{{ cartOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.course.restaurant" for="field_restaurant">Restaurant</label>
+                    <select class="form-control" id="field_restaurant" name="restaurant" formControlName="restaurant">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="restaurantOption.id === editForm.get('restaurant')!.value?.id ? editForm.get('restaurant')!.value : restaurantOption" *ngFor="let restaurantOption of restaurants; trackBy: trackById">{{ restaurantOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.course.deliverer" for="field_deliverer">Deliverer</label>
+                    <select class="form-control" id="field_deliverer" name="deliverer" formControlName="deliverer">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="delivererOption.id === editForm.get('deliverer')!.value?.id ? editForm.get('deliverer')!.value : delivererOption" *ngFor="let delivererOption of deliverers; trackBy: trackById">{{ delivererOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.course.client" for="field_client">Client</label>
+                    <select class="form-control" id="field_client" name="client" formControlName="client">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userAccountOption.id === editForm.get('client')!.value?.id ? editForm.get('client')!.value : userAccountOption" *ngFor="let userAccountOption of useraccounts; trackBy: trackById">{{ userAccountOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

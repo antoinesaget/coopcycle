@@ -1,0 +1,56 @@
+{
+    "name": "Cooperative",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "64"
+        },
+        {
+            "fieldName": "geographicalArea",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "64"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "userAccount",
+            "otherEntityRelationshipName": "cooperative",
+            "relationshipName": "dg",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "userAccount",
+            "otherEntityRelationshipName": "cooperative",
+            "relationshipName": "members"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "restaurant",
+            "otherEntityRelationshipName": "cooperative",
+            "relationshipName": "restaurants"
+        }
+    ],
+    "changelogDate": "20200424120300",
+    "entityTableName": "cooperative",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

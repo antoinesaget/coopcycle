@@ -1,0 +1,70 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="course">
+            <h2><span jhiTranslate="glCoopcycleApp.course.detail.title">Course</span> {{ course.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="glCoopcycleApp.course.state">State</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'glCoopcycleApp.CourseState.' + course.state }}">{{ course.state }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.course.deliveryState">Delivery State</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'glCoopcycleApp.DeliveryState.' + course.deliveryState }}">{{ course.deliveryState }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.course.prepTime">Prep Time</span></dt>
+                <dd>
+                    <span>{{ course.prepTime }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.course.deliveryTime">Delivery Time</span></dt>
+                <dd>
+                    <span>{{ course.deliveryTime }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.course.deliveryDetails">Delivery Details</span></dt>
+                <dd>
+                    <span>{{ course.deliveryDetails }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.course.cart">Cart</span></dt>
+                <dd>
+                    <div *ngIf="course.cart">
+                        <a [routerLink]="['/cart', course.cart?.id, 'view']">{{ course.cart?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.course.restaurant">Restaurant</span></dt>
+                <dd>
+                    <div *ngIf="course.restaurant">
+                        <a [routerLink]="['/restaurant', course.restaurant?.id, 'view']">{{ course.restaurant?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.course.deliverer">Deliverer</span></dt>
+                <dd>
+                    <div *ngIf="course.deliverer">
+                        <a [routerLink]="['/deliverer', course.deliverer?.id, 'view']">{{ course.deliverer?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.course.client">Client</span></dt>
+                <dd>
+                    <div *ngIf="course.client">
+                        <a [routerLink]="['/user-account', course.client?.id, 'view']">{{ course.client?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/course', course.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-payment-heading" jhiTranslate="glCoopcycleApp.payment.home.createOrEditLabel">Create or edit a Payment</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.payment.state" for="field_state">State</label>
+                    <select class="form-control" name="state" formControlName="state" id="field_state">
+                        <option value="WAITING">{{ 'glCoopcycleApp.PaymentState.WAITING' | translate }}</option>
+                        <option value="VALID">{{ 'glCoopcycleApp.PaymentState.VALID' | translate }}</option>
+                        <option value="CANCELED">{{ 'glCoopcycleApp.PaymentState.CANCELED' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('state')!.invalid && (editForm.get('state')!.dirty || editForm.get('state')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('state')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.payment.method" for="field_method">Method</label>
+                    <select class="form-control" name="method" formControlName="method" id="field_method">
+                        <option value="IZLY">{{ 'glCoopcycleApp.PaymentMethod.IZLY' | translate }}</option>
+                        <option value="BITCOIN">{{ 'glCoopcycleApp.PaymentMethod.BITCOIN' | translate }}</option>
+                        <option value="CB">{{ 'glCoopcycleApp.PaymentMethod.CB' | translate }}</option>
+                        <option value="PAYPAL">{{ 'glCoopcycleApp.PaymentMethod.PAYPAL' | translate }}</option>
+                    </select>
+                    <div *ngIf="editForm.get('method')!.invalid && (editForm.get('method')!.dirty || editForm.get('method')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('method')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="glCoopcycleApp.payment.course" for="field_course">Course</label>
+                    <select class="form-control" id="field_course" name="course" formControlName="course">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="courseOption.id === editForm.get('course')!.value?.id ? editForm.get('course')!.value : courseOption" *ngFor="let courseOption of courses; trackBy: trackById">{{ courseOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

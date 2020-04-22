@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userAccount">
+            <h2><span jhiTranslate="glCoopcycleApp.userAccount.detail.title">User Account</span> {{ userAccount.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="glCoopcycleApp.userAccount.mail">Mail</span></dt>
+                <dd>
+                    <span>{{ userAccount.mail }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.userAccount.adress">Adress</span></dt>
+                <dd>
+                    <span>{{ userAccount.adress }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.userAccount.login">Login</span></dt>
+                <dd>
+                    <span>{{ userAccount.login }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.userAccount.password">Password</span></dt>
+                <dd>
+                    <span>{{ userAccount.password }}</span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.userAccount.roles">Roles</span></dt>
+                <dd>
+                    <span *ngFor="let roles of userAccount.roles; let last = last">
+                        <a [routerLink]="['/role', roles?.id, 'view']">{{ roles.id }}</a>{{ last ? '' : ', ' }}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="glCoopcycleApp.userAccount.cooperative">Cooperative</span></dt>
+                <dd>
+                    <div *ngIf="userAccount.cooperative">
+                        <a [routerLink]="['/cooperative', userAccount.cooperative?.id, 'view']">{{ userAccount.cooperative?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/user-account', userAccount.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

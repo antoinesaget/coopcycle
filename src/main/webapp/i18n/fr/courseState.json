@@ -1,0 +1,10 @@
+{
+  "glCoopcycleApp": {
+    "CourseState": {
+      "null": "",
+      "IN_PROGRESS": "IN_PROGRESS",
+      "CANCELED": "CANCELED",
+      "DONE": "DONE"
+    }
+  }
+}
